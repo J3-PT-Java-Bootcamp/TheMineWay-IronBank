@@ -38,7 +38,7 @@ public class Checking {
     String primaryOwner;
 
     // Nullable
-    @Column
+    @Column(nullable = true)
     String secondaryOwner;
 
     @AttributeOverrides({
@@ -54,6 +54,12 @@ public class Checking {
 
     @Column
     int monthlyMaintenanceFee;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    AccountStatus accountStatus;
+
+    // Timestamps
 
     @Column
     @CreationTimestamp
