@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ThirdPartyRepository {
+public class ThirdPartyRepository implements IUserRepository {
 
     @Autowired
     private UserRepository userRepository;
