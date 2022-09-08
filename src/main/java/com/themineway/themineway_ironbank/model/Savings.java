@@ -16,22 +16,12 @@ import java.util.Date;
 @Getter
 @Setter
 @Table
-@SQLDelete(sql = "UPDATE Checking SET deletedAt = SYSDATE() WHERE id=?")
+@SQLDelete(sql = "UPDATE Savings SET deletedAt = SYSDATE() WHERE id=?")
 @Where(clause = "deletedAt IS NULL")
-public class Checking extends BaseAccount {
+public class Savings extends BaseAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-
-    @AttributeOverrides({
-        @AttributeOverride(name = "amount", column = @Column(name = "minimum_balance_amount")),
-        @AttributeOverride(name = "currency", column = @Column(name = "minimum_balance_currency"))
-    })
-    @Embedded
-    Money minimumBalance;
-
-    @Column
-    int monthlyMaintenanceFee;
 
     // Timestamps
 
