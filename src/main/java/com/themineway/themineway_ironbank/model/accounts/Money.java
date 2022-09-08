@@ -1,4 +1,4 @@
-package com.themineway.themineway_ironbank.model;
+package com.themineway.themineway_ironbank.model.accounts;
 
 import javax.persistence.Embeddable;
 import java.math.RoundingMode;
