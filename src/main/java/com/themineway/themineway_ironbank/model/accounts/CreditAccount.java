@@ -25,33 +25,33 @@ public class CreditAccount {
     int id;
 
     @AttributeOverrides({
-            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount")),
-            @AttributeOverride(name = "currency", column = @Column(name = "balance_currency"))
+            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount", nullable = false)),
+            @AttributeOverride(name = "currency", column = @Column(name = "balance_currency", nullable = false))
     })
     @Embedded
     Money balance;
 
     // TODO: maybe change to object
-    @Column
+    @Column(nullable = false)
     String primaryOwner;
 
     // Nullable
-    @Column(nullable = true)
+    @Column
     String secondaryOwner;
 
-    @Column
+    @Column(nullable = false)
     BigDecimal creditLimit;
 
-    @Column
+    @Column(nullable = false)
     float interestRate;
 
     // Using BigDecimal may be too overkilling
-    @Column
+    @Column(nullable = false)
     int penaltyFee;
 
     // Timestamps
 
-    @Column
+    @Column(nullable = false)
     @CreationTimestamp
     private Date createdAt;
 

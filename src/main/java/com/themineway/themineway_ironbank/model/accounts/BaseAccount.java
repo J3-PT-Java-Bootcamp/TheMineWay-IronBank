@@ -12,28 +12,28 @@ import javax.persistence.*;
 @MappedSuperclass
 public class BaseAccount {
     @AttributeOverrides({
-            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount")),
-            @AttributeOverride(name = "currency", column = @Column(name = "balance_currency"))
+            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount", nullable = false)),
+            @AttributeOverride(name = "currency", column = @Column(name = "balance_currency", nullable = false))
     })
     @Embedded
     Money balance;
 
-    @Column
+    @Column(nullable = false)
     String secretKey;
 
     // TODO: maybe change to object
-    @Column
+    @Column(nullable = false)
     String primaryOwner;
 
     // Nullable
-    @Column(nullable = true)
+    @Column
     String secondaryOwner;
 
     // Using BigDecimal may be too overkilling
-    @Column
+    @Column(nullable = false)
     int penaltyFee;
 
     @Enumerated(EnumType.STRING)
-    @Column
+    @Column(nullable = false)
     AccountStatus accountStatus;
 }

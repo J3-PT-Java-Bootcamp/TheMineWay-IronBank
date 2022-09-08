@@ -25,7 +25,7 @@ public class Savings extends BaseAccount {
 
     // Timestamps
 
-    @Column
+    @Column(nullable = false)
     @CreationTimestamp
     private Date createdAt;
 
