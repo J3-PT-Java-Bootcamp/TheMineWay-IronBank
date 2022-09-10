@@ -1,6 +1,5 @@
 package com.themineway.themineway_ironbank.model.accounts;
 
-import com.themineway.themineway_ironbank.model.users.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +17,8 @@ import java.util.Date;
 @Getter
 @Setter
 @Table
+@SQLDelete(sql = "UPDATE CreditAccount SET deletedAt = SYSDATE() WHERE id=?")
+@Where(clause = "deletedAt IS NULL")
 public class CreditAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +31,13 @@ public class CreditAccount {
     @Embedded
     Money balance;
 
-    @ManyToOne
-    @JoinColumn(nullable = true)
-    User primaryOwner;
+    // TODO: maybe change to object
+    @Column(nullable = false)
+    String primaryOwner;
 
-    @ManyToOne
-    @JoinColumn(nullable = true)
-    User secondaryOwner;
+    // Nullable
+    @Column
+    String secondaryOwner;
 
     @Column(nullable = false)
     BigDecimal creditLimit;
@@ -50,7 +51,7 @@ public class CreditAccount {
 
     // Timestamps
 
-    @Column
+    @Column(nullable = false)
     @CreationTimestamp
     private Date createdAt;
 
@@ -58,4 +59,6 @@ public class CreditAccount {
     @UpdateTimestamp
     private Date updatedAt;
 
+    @Column
+    private Date deletedAt;
 }

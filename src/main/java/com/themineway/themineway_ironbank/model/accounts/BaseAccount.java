@@ -21,6 +21,14 @@ public class BaseAccount {
     @Column(nullable = false)
     String secretKey;
 
+    // TODO: maybe change to object
+    @Column(nullable = false)
+    String primaryOwner;
+
+    // Nullable
+    @Column
+    String secondaryOwner;
+
     // Using BigDecimal may be too overkilling
     @Column(nullable = false)
     int penaltyFee;
