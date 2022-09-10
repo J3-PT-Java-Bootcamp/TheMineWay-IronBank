@@ -1,5 +1,6 @@
 package com.themineway.themineway_ironbank.model.users;
 
+import com.themineway.themineway_ironbank.model.accounts.CreditAccount;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,15 +11,19 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
 @Table
-@SQLDelete(sql = "UPDATE User SET deletedAt = SYSDATE() WHERE id=?")
-@Where(clause = "deletedAt IS NULL")
 public class User {
+
+    public User(int id) {
+        setId(id);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -49,6 +54,8 @@ public class User {
     @UpdateTimestamp
     private Date updatedAt;
 
-    @Column
-    private Date deletedAt;
+    // Associations
+
+    @OneToMany(mappedBy = "primaryOwner")
+    List<CreditAccount> primaryCreditAccounts;
 }

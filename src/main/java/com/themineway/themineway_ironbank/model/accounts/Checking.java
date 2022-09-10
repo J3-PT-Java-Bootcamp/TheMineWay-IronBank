@@ -1,5 +1,6 @@
 package com.themineway.themineway_ironbank.model.accounts;
 
+import com.themineway.themineway_ironbank.model.users.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,8 +17,6 @@ import java.util.Date;
 @Getter
 @Setter
 @Table
-@SQLDelete(sql = "UPDATE Checking SET deletedAt = SYSDATE() WHERE id=?")
-@Where(clause = "deletedAt IS NULL")
 public class Checking extends BaseAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +32,13 @@ public class Checking extends BaseAccount {
     @Column
     int monthlyMaintenanceFee;
 
+    @ManyToOne
+    User primaryOwner;
+
+    @ManyToOne
+    @JoinColumn(nullable = true)
+    User secondaryOwner;
+
     // Timestamps
 
     @Column
@@ -42,7 +48,4 @@ public class Checking extends BaseAccount {
     @Column
     @UpdateTimestamp
     private Date updatedAt;
-
-    @Column
-    private Date deletedAt;
 }

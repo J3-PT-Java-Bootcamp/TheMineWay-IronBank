@@ -21,6 +21,8 @@ public class CreditAccountService {
         creditAccount.setCreditLimit(creditLimit);
         creditAccount.setInterestRate(interestRate);
 
+        creditAccount.setPrimaryOwner(null);
+
         creditAccountRepository.save(creditAccount);
     }
 

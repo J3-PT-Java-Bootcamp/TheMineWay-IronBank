@@ -3,6 +3,7 @@ package com.themineway.themineway_ironbank.dto.accounts;
 import com.themineway.themineway_ironbank.model.accounts.AccountStatus;
 import com.themineway.themineway_ironbank.model.accounts.Checking;
 import com.themineway.themineway_ironbank.model.accounts.Money;
+import com.themineway.themineway_ironbank.model.users.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -17,9 +18,8 @@ public class CreateCheckingDTO {
     @NotNull
     public int penaltyFee;
     @NotNull
-    @NotBlank
-    public String primaryOwner;
-    public String secondaryOwner;
+    public int primaryOwner;
+    public int secondaryOwner;
     @NotNull
     public String secretKey;
     @NotNull
@@ -32,9 +32,8 @@ public class CreateCheckingDTO {
         checking.setAccountStatus(accountStatus);
         checking.setBalance(new Money(accountBalance));
         checking.setPenaltyFee(penaltyFee);
-        checking.setPrimaryOwner(primaryOwner);
-        checking.setSecondaryOwner(secondaryOwner);
-        checking.setSecondaryOwner(secondaryOwner);
+        checking.setPrimaryOwner(new User(primaryOwner));
+        checking.setSecondaryOwner(new User(secondaryOwner));
         checking.setSecretKey(secretKey);
         checking.setMinimumBalance(new Money(minimumBalanceAmount));
         checking.setMonthlyMaintenanceFee(monthlyMaintenanceFee);
