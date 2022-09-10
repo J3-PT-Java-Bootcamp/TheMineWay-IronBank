@@ -28,13 +28,13 @@ public class SwaggerConfig {
 
     private ApiInfo getApiInfo() {
         return new ApiInfo(
-                "Order Service API",
-                "Order Service API Description",
+                "TheMineWay Bank",
+                "Bank API description",
                 "1.0",
-                "http://codmind.com/terms",
-                new Contact("Codmind", "https://codmind.com", "apis@codmind.com"),
-                "LICENSE",
-                "LICENSE URL",
+                "https://github.com/J3-PT-Java-Bootcamp/TheMineWay-IronBank",
+                new Contact("Joel Campos", "https://themineway.github.io/CV/", "joelcamposoliva@gmail.com"),
+                "Apache License 2.0",
+                "https://www.apache.org/licenses/LICENSE-2.0",
                 Collections.emptyList()
         );
     }
