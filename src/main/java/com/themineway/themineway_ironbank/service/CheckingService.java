@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.List;
 
 @Component
 public class CheckingService {
@@ -23,6 +24,11 @@ public class CheckingService {
 
     @Autowired
     UserRepository userRepository;
+
+
+    public List<Checking> getAllCheckings() {
+        return checkingRepository.findAll();
+    }
 
     public void createChecking(Checking checking) {
         final var primaryOwnerFetch = userRepository.findById(checking.getPrimaryOwner().getId());

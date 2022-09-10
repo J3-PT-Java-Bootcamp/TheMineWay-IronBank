@@ -5,11 +5,17 @@ import com.themineway.themineway_ironbank.repository.accounts.SavingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class SavingsService {
 
     @Autowired
     SavingRepository savingRepository;
+
+    public List<Savings> getAllSavings() {
+        return savingRepository.findAll();
+    }
 
     public void createSavings(Savings savings) {
 

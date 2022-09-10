@@ -6,12 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Component
 public class CreditAccountService {
 
     @Autowired
     CreditAccountRepository creditAccountRepository;
+
+    public List<CreditAccount> getAllCreditAccounts() {
+        return creditAccountRepository.findAll();
+    }
 
     public void createCreditAccount(CreditAccount creditAccount) {
 
