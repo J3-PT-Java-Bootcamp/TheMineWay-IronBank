@@ -17,7 +17,7 @@ import java.util.Date;
 @Setter
 @Table
 @SQLDelete(sql = "UPDATE User SET deletedAt = SYSDATE() WHERE id=?")
-@Where(clause = "deletedAt IS NULL")
+@Where(clause = "deleted_at IS NULL")
 public class User {
 
     public User(int id) {

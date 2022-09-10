@@ -1,7 +1,7 @@
 package com.themineway.themineway_ironbank.dto.accounts;
 
-import com.themineway.themineway_ironbank.accounts.CreditAccount;
-import com.themineway.themineway_ironbank.accounts.Money;
+import com.themineway.themineway_ironbank.model.accounts.CreditAccount;
+import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.users.User;
 
 import javax.validation.constraints.DecimalMax;
