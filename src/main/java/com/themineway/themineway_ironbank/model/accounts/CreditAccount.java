@@ -43,7 +43,7 @@ public class CreditAccount {
     BigDecimal creditLimit;
 
     @Column(nullable = false)
-    float interestRate;
+    Float interestRate;
 
     // Using BigDecimal may be too overkilling
     @Column(nullable = false)
