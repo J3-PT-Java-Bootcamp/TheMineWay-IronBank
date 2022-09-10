@@ -1,4 +1,4 @@
-package com.themineway.themineway_ironbank.model.accounts;
+package com.themineway.themineway_ironbank.accounts;
 
 import com.themineway.themineway_ironbank.model.users.User;
 import lombok.Getter;
@@ -10,7 +10,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -18,19 +17,15 @@ import java.util.Date;
 @Getter
 @Setter
 @Table
-@SQLDelete(sql = "UPDATE CreditAccount SET deletedAt = SYSDATE() WHERE id=?")
+@SQLDelete(sql = "UPDATE Savings SET deletedAt = SYSDATE() WHERE id=?")
 @Where(clause = "deletedAt IS NULL")
-public class CreditAccount {
+public class Savings extends BaseAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    @AttributeOverrides({
-            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount", nullable = false)),
-            @AttributeOverride(name = "currency", column = @Column(name = "balance_currency", nullable = false))
-    })
-    @Embedded
-    Money balance;
+    @Column(nullable = false)
+    Float interestRate;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -39,16 +34,6 @@ public class CreditAccount {
     @ManyToOne
     @JoinColumn(nullable = true)
     User secondaryOwner;
-
-    @Column(nullable = false)
-    BigDecimal creditLimit;
-
-    @Column(nullable = false)
-    Float interestRate;
-
-    // Using BigDecimal may be too overkilling
-    @Column(nullable = false)
-    int penaltyFee;
 
     // Timestamps
 

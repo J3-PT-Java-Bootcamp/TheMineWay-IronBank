@@ -1,6 +1,6 @@
 package com.themineway.themineway_ironbank.service;
 
-import com.themineway.themineway_ironbank.model.accounts.CreditAccount;
+import com.themineway.themineway_ironbank.accounts.CreditAccount;
 import com.themineway.themineway_ironbank.repository.accounts.CreditAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

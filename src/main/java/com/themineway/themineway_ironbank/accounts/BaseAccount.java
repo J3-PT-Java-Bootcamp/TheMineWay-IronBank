@@ -1,4 +1,4 @@
-package com.themineway.themineway_ironbank.model.accounts;
+package com.themineway.themineway_ironbank.accounts;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

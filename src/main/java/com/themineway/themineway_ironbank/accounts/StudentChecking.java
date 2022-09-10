@@ -1,4 +1,4 @@
-package com.themineway.themineway_ironbank.model.accounts;
+package com.themineway.themineway_ironbank.accounts;
 
 import com.themineway.themineway_ironbank.model.users.User;
 import lombok.Getter;
@@ -17,15 +17,12 @@ import java.util.Date;
 @Getter
 @Setter
 @Table
-@SQLDelete(sql = "UPDATE Savings SET deletedAt = SYSDATE() WHERE id=?")
+@SQLDelete(sql = "UPDATE StudentChecking SET deletedAt = SYSDATE() WHERE id=?")
 @Where(clause = "deletedAt IS NULL")
-public class Savings extends BaseAccount {
+public class StudentChecking extends BaseAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-
-    @Column(nullable = false)
-    Float interestRate;
 
     @ManyToOne
     @JoinColumn(nullable = false)
