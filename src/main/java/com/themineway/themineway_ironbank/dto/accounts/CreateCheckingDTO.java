@@ -9,33 +9,23 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class CreateCheckingDTO {
+
     @NotNull
-    int penaltyFee;
-
-    public Checking toChecking() {
-        final var checking = new Checking();
-
-        checking.setPenaltyFee(penaltyFee);
-
-        return checking;
-    }
-
-    /*@NotNull
-    AccountStatus accountStatus;
+    public AccountStatus accountStatus;
     @NotNull
-    BigDecimal accountBalance;
+    public BigDecimal accountBalance;
     @NotNull
-    int penaltyFee;
+    public int penaltyFee;
     @NotNull
     @NotBlank
-    String primaryOwner;
-    String secondaryOwner;
+    public String primaryOwner;
+    public String secondaryOwner;
     @NotNull
-    String secretKey;
+    public String secretKey;
     @NotNull
-    BigDecimal minimumBalanceAmount;
+    public BigDecimal minimumBalanceAmount;
     @NotNull
-    int monthlyMaintenanceFee;
+    public int monthlyMaintenanceFee;
 
     public Checking toChecking() {
         final var checking = new Checking();
@@ -49,5 +39,5 @@ public class CreateCheckingDTO {
         checking.setMonthlyMaintenanceFee(monthlyMaintenanceFee);
 
         return checking;
-    }*/
+    }
 }

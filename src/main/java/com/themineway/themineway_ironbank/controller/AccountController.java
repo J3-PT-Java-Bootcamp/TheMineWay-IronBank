@@ -7,16 +7,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(name = "account")
+@RequestMapping(path = "account")
 public class AccountController {
 
-    @GetMapping
-    String getHello() {
-        return "Hello";
-    }
-
-    @PostMapping("/new-checking")
-    Checking createCheching(
+    @PostMapping("new-checking")
+    Checking createChecking(
         @Validated @RequestBody() CreateCheckingDTO checking
     ) {
         return checking.toChecking();
