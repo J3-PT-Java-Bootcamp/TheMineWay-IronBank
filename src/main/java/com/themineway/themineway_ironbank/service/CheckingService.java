@@ -17,11 +17,6 @@ public class CheckingService {
 
     public void createChecking(Checking checking) {
         final var primaryOwner = userRepository.findById(checking.getPrimaryOwner().getId());
-        if(primaryOwner.isEmpty()) {
-            System.out.println("Not present");
-            return;
-        }
-        System.out.println(primaryOwner.get().getName());
         checkingRepository.save(checking);
     }
 
