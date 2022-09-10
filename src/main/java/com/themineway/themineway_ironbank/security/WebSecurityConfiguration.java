@@ -30,15 +30,16 @@ public class WebSecurityConfiguration extends KeycloakWebSecurityConfigurerAdapt
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
-        http.csrf()
+        //super.configure(http);
+        //http.csrf().and().anonymous().
+        /*http.csrf()
                 .disable()
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
     }
 
 }
