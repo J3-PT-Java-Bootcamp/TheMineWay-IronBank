@@ -34,6 +34,7 @@ public class CreateCheckingDTO {
         checking.setPenaltyFee(penaltyFee);
         checking.setPrimaryOwner(primaryOwner);
         checking.setSecondaryOwner(secondaryOwner);
+        checking.setSecondaryOwner(secondaryOwner);
         checking.setSecretKey(secretKey);
         checking.setMinimumBalance(new Money(minimumBalanceAmount));
         checking.setMonthlyMaintenanceFee(monthlyMaintenanceFee);
