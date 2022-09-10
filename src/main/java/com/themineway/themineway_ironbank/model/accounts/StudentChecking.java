@@ -1,5 +1,6 @@
 package com.themineway.themineway_ironbank.model.accounts;
 
+import com.themineway.themineway_ironbank.model.users.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,14 @@ public class StudentChecking extends BaseAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    User primaryOwner;
+
+    @ManyToOne
+    @JoinColumn(nullable = true)
+    User secondaryOwner;
 
     // Timestamps
 

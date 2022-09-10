@@ -1,5 +1,6 @@
 package com.themineway.themineway_ironbank.model.accounts;
 
+import com.themineway.themineway_ironbank.model.users.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,6 +33,14 @@ public class Checking extends BaseAccount {
 
     @Column
     int monthlyMaintenanceFee;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    User primaryOwner;
+
+    @ManyToOne
+    @JoinColumn(nullable = true)
+    User secondaryOwner;
 
     // Timestamps
 

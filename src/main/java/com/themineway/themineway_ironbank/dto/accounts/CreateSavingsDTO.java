@@ -3,6 +3,7 @@ package com.themineway.themineway_ironbank.dto.accounts;
 import com.themineway.themineway_ironbank.model.accounts.AccountStatus;
 import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.accounts.Savings;
+import com.themineway.themineway_ironbank.model.users.User;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotEmpty;
@@ -21,9 +22,9 @@ public class CreateSavingsDTO {
 
     @NotNull
     @NotEmpty
-    public String primaryOwner;
+    public int primaryOwner;
 
-    public String secondaryOwner;
+    public Integer secondaryOwner;
 
     @NotNull
     @NotEmpty
@@ -38,8 +39,8 @@ public class CreateSavingsDTO {
         savings.setAccountStatus(accountStatus);
         savings.setBalance(new Money(balanceAmount));
         savings.setPenaltyFee(penaltyFee);
-        savings.setPrimaryOwner(primaryOwner);
-        savings.setSecondaryOwner(secondaryOwner);
+        savings.setPrimaryOwner(new User(primaryOwner));
+        if(secondaryOwner != null) savings.setSecondaryOwner(new User(secondaryOwner));
         savings.setSecretKey(secretKey);
         savings.setInterestRate(interestRate);
 

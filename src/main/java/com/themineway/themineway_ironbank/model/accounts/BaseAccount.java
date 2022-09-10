@@ -18,16 +18,8 @@ public class BaseAccount {
     @Embedded
     Money balance;
 
-    @Column(nullable = false)
-    String secretKey;
-
-    // TODO: maybe change to object
-    @Column(nullable = false)
-    String primaryOwner;
-
-    // Nullable
     @Column
-    String secondaryOwner;
+    String secretKey;
 
     // Using BigDecimal may be too overkilling
     @Column(nullable = false)
