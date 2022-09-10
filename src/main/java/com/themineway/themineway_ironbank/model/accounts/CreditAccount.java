@@ -1,5 +1,6 @@
 package com.themineway.themineway_ironbank.model.accounts;
 
+import com.themineway.themineway_ironbank.model.users.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,13 +32,13 @@ public class CreditAccount {
     @Embedded
     Money balance;
 
-    // TODO: maybe change to object
-    @Column(nullable = false)
-    String primaryOwner;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    User primaryOwner;
 
-    // Nullable
-    @Column
-    String secondaryOwner;
+    @ManyToOne
+    @JoinColumn(nullable = true)
+    User secondaryOwner;
 
     @Column(nullable = false)
     BigDecimal creditLimit;

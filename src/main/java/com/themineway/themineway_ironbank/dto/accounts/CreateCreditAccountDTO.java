@@ -2,6 +2,7 @@ package com.themineway.themineway_ironbank.dto.accounts;
 
 import com.themineway.themineway_ironbank.model.accounts.CreditAccount;
 import com.themineway.themineway_ironbank.model.accounts.Money;
+import com.themineway.themineway_ironbank.model.users.User;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -15,10 +16,9 @@ public class CreateCreditAccountDTO {
     public BigDecimal balanceAmount;
 
     @NotNull
-    @NotBlank
-    public String primaryOwner;
+    public int primaryOwner;
 
-    public String secondaryOwner;
+    public Integer secondaryOwner;
 
     @DecimalMin("0")
     @DecimalMax("100000")
@@ -35,8 +35,8 @@ public class CreateCreditAccountDTO {
         final var creditAccount = new CreditAccount();
 
         creditAccount.setBalance(new Money(balanceAmount));
-        creditAccount.setPrimaryOwner(primaryOwner);
-        creditAccount.setSecondaryOwner(secondaryOwner);
+        creditAccount.setPrimaryOwner(new User(primaryOwner));
+        if(secondaryOwner != null) creditAccount.setSecondaryOwner(new User(secondaryOwner));
         creditAccount.setCreditLimit(creditLimit);
         creditAccount.setInterestRate(interestRate);
         creditAccount.setPenaltyFee(penaltyFee);

@@ -19,6 +19,11 @@ import java.util.Date;
 @SQLDelete(sql = "UPDATE User SET deletedAt = SYSDATE() WHERE id=?")
 @Where(clause = "deletedAt IS NULL")
 public class User {
+
+    public User(int id) {
+        setId(id);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
