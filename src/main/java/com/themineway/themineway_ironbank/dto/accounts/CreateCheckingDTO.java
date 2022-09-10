@@ -10,6 +10,17 @@ import java.math.BigDecimal;
 
 public class CreateCheckingDTO {
     @NotNull
+    int penaltyFee;
+
+    public Checking toChecking() {
+        final var checking = new Checking();
+
+        checking.setPenaltyFee(penaltyFee);
+
+        return checking;
+    }
+
+    /*@NotNull
     AccountStatus accountStatus;
     @NotNull
     BigDecimal accountBalance;
@@ -38,5 +49,5 @@ public class CreateCheckingDTO {
         checking.setMonthlyMaintenanceFee(monthlyMaintenanceFee);
 
         return checking;
-    }
+    }*/
 }
