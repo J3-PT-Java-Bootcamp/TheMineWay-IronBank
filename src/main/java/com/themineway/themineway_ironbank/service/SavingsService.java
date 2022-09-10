@@ -12,6 +12,10 @@ public class SavingsService {
     SavingRepository savingRepository;
 
     public void createSavings(Savings savings) {
+
+        float interestRate = savings.getInterestRate() == null ? 0.0025f : savings.getInterestRate();
+
+        savings.setInterestRate(interestRate);
         savingRepository.save(savings);
     }
 }

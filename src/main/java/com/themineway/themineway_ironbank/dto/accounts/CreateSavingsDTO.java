@@ -4,6 +4,7 @@ import com.themineway.themineway_ironbank.model.accounts.AccountStatus;
 import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.accounts.Savings;
 
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -28,6 +29,9 @@ public class CreateSavingsDTO {
     @NotEmpty
     public String secretKey;
 
+    @DecimalMax("0.5")
+    public Float interestRate;
+
     public Savings toSavings() {
         final var savings = new Savings();
 
@@ -37,6 +41,7 @@ public class CreateSavingsDTO {
         savings.setPrimaryOwner(primaryOwner);
         savings.setSecondaryOwner(secondaryOwner);
         savings.setSecretKey(secretKey);
+        savings.setInterestRate(interestRate);
 
         return savings;
     }

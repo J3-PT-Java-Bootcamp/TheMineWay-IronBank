@@ -23,6 +23,9 @@ public class Savings extends BaseAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
+    @Column(nullable = false)
+    Float interestRate;
+
     // Timestamps
 
     @Column(nullable = false)
