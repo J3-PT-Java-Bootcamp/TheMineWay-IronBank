@@ -1,6 +1,7 @@
 package com.themineway.themineway_ironbank.controller;
 
 import com.themineway.themineway_ironbank.dto.accounts.CreateCreditAccountDTO;
+import com.themineway.themineway_ironbank.dto.accounts.UpdateAccountBalanceDTO;
 import com.themineway.themineway_ironbank.service.CreditAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,5 +21,13 @@ public class CreditController implements IAccountController<CreateCreditAccountD
             @Validated @RequestBody() CreateCreditAccountDTO creditAccountDTO
     ) {
         creditAccountService.createCreditAccount(creditAccountDTO.toCreditAccount());
+    }
+
+    @PatchMapping("{id}/update-balance")
+    public void updateBalance(
+            @PathVariable(name = "id") int accountId,
+            @Validated @RequestBody UpdateAccountBalanceDTO updateAccountBalanceDTO
+    ) {
+        creditAccountService.updateAccountBalance(accountId, updateAccountBalanceDTO.balance);
     }
 }

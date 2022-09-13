@@ -1,5 +1,6 @@
 package com.themineway.themineway_ironbank.service;
 
+import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.accounts.Savings;
 import com.themineway.themineway_ironbank.repository.accounts.SavingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,13 @@ public class SavingsService {
 
         savings.setInterestRate(interestRate);
         savingRepository.save(savings);
+    }
+
+    public void updateAccountBalance(int id, Money balance) {
+        final var _account = savingRepository.findById(id);
+        if(_account.isEmpty()) return; // TODO: throw error
+        final var account = _account.get();
+        account.setBalance(balance);
+        savingRepository.save(account);
     }
 }

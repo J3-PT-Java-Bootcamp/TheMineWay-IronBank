@@ -1,6 +1,7 @@
 package com.themineway.themineway_ironbank.service;
 
 import com.themineway.themineway_ironbank.model.accounts.Checking;
+import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.accounts.StudentChecking;
 import com.themineway.themineway_ironbank.repository.accounts.CheckingRepository;
 import com.themineway.themineway_ironbank.repository.accounts.StudentCheckingRepository;
@@ -52,4 +53,11 @@ public class CheckingService {
         }
     }
 
+    public void updateAccountBalance(int id, Money balance) {
+        final var _account = checkingRepository.findById(id);
+        if(_account.isEmpty()) return; // TODO: throw error
+        final var account = _account.get();
+        account.setBalance(balance);
+        checkingRepository.save(account);
+    }
 }

@@ -1,6 +1,7 @@
 package com.themineway.themineway_ironbank.controller;
 
 import com.themineway.themineway_ironbank.dto.accounts.CreateCheckingDTO;
+import com.themineway.themineway_ironbank.dto.accounts.UpdateAccountBalanceDTO;
 import com.themineway.themineway_ironbank.service.CheckingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,5 +20,13 @@ public class CheckingController implements IAccountController<CreateCheckingDTO>
         @Validated @RequestBody() CreateCheckingDTO checkingDTO
     ) {
         checkingService.createChecking(checkingDTO.toChecking());
+    }
+
+    @PatchMapping("{id}/update-balance")
+    public void updateBalance(
+            @PathVariable(name = "id") int accountId,
+            @Validated @RequestBody UpdateAccountBalanceDTO updateAccountBalanceDTO
+    ) {
+        checkingService.updateAccountBalance(accountId, updateAccountBalanceDTO.balance);
     }
 }
