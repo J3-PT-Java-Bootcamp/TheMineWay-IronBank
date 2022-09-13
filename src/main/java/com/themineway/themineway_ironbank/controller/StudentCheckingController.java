@@ -23,7 +23,7 @@ public class StudentCheckingController implements IAccountController<StudentChec
     ) {
         studentCheckingService.updateAccountBalance(accountId, updateAccountBalanceDTO.balance);
     }
-
+    
     @GetMapping("{id}")
     public StudentChecking get(
         @PathVariable(name = "id") int id
