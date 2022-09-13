@@ -1,6 +1,7 @@
 package com.themineway.themineway_ironbank.controller;
 
 import com.themineway.themineway_ironbank.dto.accounts.UpdateAccountBalanceDTO;
+import com.themineway.themineway_ironbank.model.accounts.StudentChecking;
 import com.themineway.themineway_ironbank.service.StudentCheckingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "student-checking-account")
-public class StudentCheckingController implements IAccountController<Object> {
+public class StudentCheckingController implements IAccountController<StudentChecking, Object> {
     @Autowired
     StudentCheckingService studentCheckingService;
 
@@ -21,5 +22,12 @@ public class StudentCheckingController implements IAccountController<Object> {
         @Validated @RequestBody UpdateAccountBalanceDTO updateAccountBalanceDTO
     ) {
         studentCheckingService.updateAccountBalance(accountId, updateAccountBalanceDTO.balance);
+    }
+
+    @GetMapping("{id}")
+    public StudentChecking get(
+        @PathVariable(name = "id") int id
+    ) {
+        return studentCheckingService.getById(id);
     }
 }

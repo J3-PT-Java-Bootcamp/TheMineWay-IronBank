@@ -1,5 +1,6 @@
 package com.themineway.themineway_ironbank.service;
 
+import com.themineway.themineway_ironbank.model.accounts.Checking;
 import com.themineway.themineway_ironbank.model.accounts.CreditAccount;
 import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.repository.accounts.CreditAccountRepository;
@@ -38,4 +39,9 @@ public class CreditAccountService {
         creditAccountRepository.save(account);
     }
 
+    public CreditAccount getById(int id) {
+        final var _credit = creditAccountRepository.findById(id);
+        if(_credit.isEmpty()) return null; //TODO: except
+        return _credit.get();
+    }
 }

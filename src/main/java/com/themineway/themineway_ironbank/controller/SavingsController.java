@@ -2,6 +2,7 @@ package com.themineway.themineway_ironbank.controller;
 
 import com.themineway.themineway_ironbank.dto.accounts.CreateSavingsDTO;
 import com.themineway.themineway_ironbank.dto.accounts.UpdateAccountBalanceDTO;
+import com.themineway.themineway_ironbank.model.accounts.Savings;
 import com.themineway.themineway_ironbank.service.SavingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "savings-account")
-public class SavingsController implements IAccountController<CreateSavingsDTO> {
+public class SavingsController implements IAccountController<Savings, CreateSavingsDTO> {
 
     @Autowired
     SavingsService savingsService;
@@ -28,5 +29,12 @@ public class SavingsController implements IAccountController<CreateSavingsDTO> {
             @Validated @RequestBody UpdateAccountBalanceDTO updateAccountBalanceDTO
     ) {
         savingsService.updateAccountBalance(accountId, updateAccountBalanceDTO.balance);
+    }
+
+    @GetMapping("{id}")
+    public Savings get(
+            @PathVariable(name = "id") int id
+    ) {
+        return savingsService.getById(id);
     }
 }

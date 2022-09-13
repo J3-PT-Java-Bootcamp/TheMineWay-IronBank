@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CheckingService {
@@ -59,5 +60,11 @@ public class CheckingService {
         final var account = _account.get();
         account.setBalance(balance);
         checkingRepository.save(account);
+    }
+
+    public Checking getById(int id) {
+        final var _checking = checkingRepository.findById(id);
+        if(_checking.isEmpty()) return null; //TODO: except
+        return _checking.get();
     }
 }
