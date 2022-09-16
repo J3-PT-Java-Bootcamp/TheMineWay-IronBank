@@ -7,5 +7,5 @@ public class Address {
 
     String countryCode;
     String street;
-    int number;
+    Integer number;
 }
