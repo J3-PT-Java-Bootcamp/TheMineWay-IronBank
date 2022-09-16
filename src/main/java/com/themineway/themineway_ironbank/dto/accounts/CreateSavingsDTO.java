@@ -6,6 +6,7 @@ import com.themineway.themineway_ironbank.model.accounts.Savings;
 import com.themineway.themineway_ironbank.model.users.User;
 
 import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -16,6 +17,10 @@ public class CreateSavingsDTO {
 
     @NotNull
     public BigDecimal balanceAmount;
+
+    @NotNull
+    @DecimalMin("100")
+    public BigDecimal minimumBalanceAmount;
 
     @NotNull
     public int penaltyFee;
@@ -43,6 +48,7 @@ public class CreateSavingsDTO {
         if(secondaryOwner != null) savings.setSecondaryOwner(new User(secondaryOwner));
         savings.setSecretKey(secretKey);
         savings.setInterestRate(interestRate);
+        savings.setMinimumBalance(new Money(minimumBalanceAmount));
 
         return savings;
     }

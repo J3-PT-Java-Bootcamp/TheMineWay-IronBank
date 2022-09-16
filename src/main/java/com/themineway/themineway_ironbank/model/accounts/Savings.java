@@ -35,6 +35,13 @@ public class Savings extends BaseAccount {
     @JoinColumn(nullable = true)
     User secondaryOwner;
 
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "minimum_balance_amount", nullable = false)),
+            @AttributeOverride(name = "currency", column = @Column(name = "minimum_balance_currency", nullable = false))
+    })
+    @Embedded
+    Money minimumBalance;
+
     // Timestamps
 
     @Column(nullable = false)
