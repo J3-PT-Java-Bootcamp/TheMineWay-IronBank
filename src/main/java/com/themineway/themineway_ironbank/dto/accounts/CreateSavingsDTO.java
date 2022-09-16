@@ -47,7 +47,7 @@ public class CreateSavingsDTO {
         if(secondaryOwner != null) savings.setSecondaryOwner(new User(secondaryOwner));
         savings.setSecretKey(secretKey);
         savings.setInterestRate(interestRate);
-        savings.setMinimumBalance(new Money(minimumBalanceAmount));
+        if(savings.getMinimumBalance() != null) savings.setMinimumBalance(new Money(minimumBalanceAmount));
 
         return savings;
     }
