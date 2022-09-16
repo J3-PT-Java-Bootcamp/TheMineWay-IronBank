@@ -18,7 +18,6 @@ public class CreateSavingsDTO {
     @NotNull
     public BigDecimal balanceAmount;
 
-    @NotNull
     @DecimalMin("100")
     public BigDecimal minimumBalanceAmount;
 
