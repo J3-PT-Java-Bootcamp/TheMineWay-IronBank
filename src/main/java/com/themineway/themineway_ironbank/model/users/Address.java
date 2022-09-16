@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
 
-    String countryCode;
-    String street;
-    Integer number;
+    public String countryCode;
+    public String street;
+    public Integer number;
 }
