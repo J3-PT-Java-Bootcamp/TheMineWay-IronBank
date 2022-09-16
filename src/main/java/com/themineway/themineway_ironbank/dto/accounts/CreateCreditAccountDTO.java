@@ -36,7 +36,7 @@ public class CreateCreditAccountDTO {
         creditAccount.setBalance(new Money(balanceAmount));
         creditAccount.setPrimaryOwner(new User(primaryOwner));
         if(secondaryOwner != null) creditAccount.setSecondaryOwner(new User(secondaryOwner));
-        creditAccount.setCreditLimit(creditLimit);
+        if(creditLimit != null) creditAccount.setCreditLimit(creditLimit);
         creditAccount.setInterestRate(interestRate);
         creditAccount.setPenaltyFee(penaltyFee);
 
