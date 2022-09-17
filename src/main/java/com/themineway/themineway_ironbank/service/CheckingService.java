@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class CheckingService {
