@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "checking-account")
 public class CheckingController implements IAccountController<Checking, CreateCheckingDTO> {
@@ -36,5 +39,12 @@ public class CheckingController implements IAccountController<Checking, CreateCh
         @PathVariable(name = "id") int id
     ) {
         return checkingService.getById(id);
+    }
+
+    @GetMapping("my-accounts")
+    public List<Checking> getMyAccount(
+        Principal principal
+    ) {
+        return checkingService.getAccountsByKeycloakUser(principal.getName());
     }
 }

@@ -42,4 +42,8 @@ public class SavingsService {
         if(_savings.isEmpty()) return null; //TODO: except
         return _savings.get();
     }
+
+    public List<Savings> getAccountsByKeycloakUser(String userId) {
+        return savingRepository.getAccountsByKeycloakUserId(userId);
+    }
 }

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "student-checking-account")
 public class StudentCheckingController implements IAccountController<StudentChecking, Object> {
@@ -29,5 +32,13 @@ public class StudentCheckingController implements IAccountController<StudentChec
         @PathVariable(name = "id") int id
     ) {
         return studentCheckingService.getById(id);
+    }
+
+    @GetMapping("my-accounts")
+    public List<StudentChecking> getMyAccount(
+        Principal principal
+    ) {
+        System.out.println(principal.getName());
+        return studentCheckingService.getAccountsByKeycloakUser(principal.getName());
     }
 }

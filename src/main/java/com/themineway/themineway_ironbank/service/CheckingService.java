@@ -66,4 +66,8 @@ public class CheckingService {
         if(_checking.isEmpty()) return null; //TODO: except
         return _checking.get();
     }
+
+    public List<Checking> getAccountsByKeycloakUser(String userId) {
+        return checkingRepository.getAccountsByKeycloakUserId(userId);
+    }
 }

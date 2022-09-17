@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "credit-account")
 public class CreditController implements IAccountController<CreditAccount, CreateCreditAccountDTO> {
@@ -37,5 +40,12 @@ public class CreditController implements IAccountController<CreditAccount, Creat
             @PathVariable(name = "id") int id
     ) {
         return creditAccountService.getById(id);
+    }
+
+    @GetMapping("my-accounts")
+    public List<CreditAccount> getMyAccount(
+        Principal principal
+    ) {
+        return creditAccountService.getAccountsByKeycloakUser(principal.getName());
     }
 }

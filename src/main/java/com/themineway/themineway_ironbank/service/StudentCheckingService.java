@@ -1,6 +1,5 @@
 package com.themineway.themineway_ironbank.service;
 
-import com.themineway.themineway_ironbank.model.accounts.Checking;
 import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.accounts.StudentChecking;
 import com.themineway.themineway_ironbank.repository.accounts.StudentCheckingRepository;
@@ -31,5 +30,9 @@ public class StudentCheckingService {
         final var _checking = studentCheckingRepository.findById(id);
         if(_checking.isEmpty()) return null; //TODO: except
         return _checking.get();
+    }
+
+    public List<StudentChecking> getAccountsByKeycloakUser(String userId) {
+        return studentCheckingRepository.getAccountsByKeycloakUserId(userId);
     }
 }
