@@ -2,12 +2,14 @@ package com.themineway.themineway_ironbank.controller;
 
 import com.themineway.themineway_ironbank.dto.accounts.CreateSavingsDTO;
 import com.themineway.themineway_ironbank.dto.accounts.UpdateAccountBalanceDTO;
+import com.themineway.themineway_ironbank.model.accounts.Checking;
 import com.themineway.themineway_ironbank.model.accounts.Savings;
 import com.themineway.themineway_ironbank.service.SavingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -28,15 +30,15 @@ public class SavingsController implements IAccountController<Savings, CreateSavi
     }
     @PatchMapping("{id}/update-balance")
     public void updateBalance(
-            @PathVariable(name = "id") int accountId,
-            @Validated @RequestBody UpdateAccountBalanceDTO updateAccountBalanceDTO
+        @PathVariable(name = "id") int accountId,
+        @Validated @RequestBody UpdateAccountBalanceDTO updateAccountBalanceDTO
     ) {
         savingsService.updateAccountBalance(accountId, updateAccountBalanceDTO.balance);
     }
 
     @GetMapping("{id}")
     public Savings get(
-            @PathVariable(name = "id") int id
+        @PathVariable(name = "id") int id
     ) {
         return savingsService.getById(id);
     }
@@ -46,5 +48,15 @@ public class SavingsController implements IAccountController<Savings, CreateSavi
         Principal principal
     ) {
         return savingsService.getAccountsByKeycloakUser(principal.getName());
+    }
+
+    @GetMapping("my-account/{id}")
+    public Savings getMyAccount(
+        Principal principal,
+        @PathVariable(name = "id") int id
+    ) {
+        final var account = savingsService.getAccountByKeycloakUser(principal.getName(), id);
+        if(account.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        return account.get();
     }
 }

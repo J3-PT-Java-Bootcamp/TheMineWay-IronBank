@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CheckingService {
@@ -69,5 +70,9 @@ public class CheckingService {
 
     public List<Checking> getAccountsByKeycloakUser(String userId) {
         return checkingRepository.getAccountsByKeycloakUserId(userId);
+    }
+
+    public Optional<Checking> getAccountByKeycloakUser(String userId, int accountId) {
+        return checkingRepository.getAccountByKeycloakUserId(userId, accountId);
     }
 }

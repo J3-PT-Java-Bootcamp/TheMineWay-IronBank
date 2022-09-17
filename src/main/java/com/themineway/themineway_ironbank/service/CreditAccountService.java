@@ -2,12 +2,14 @@ package com.themineway.themineway_ironbank.service;
 
 import com.themineway.themineway_ironbank.model.accounts.CreditAccount;
 import com.themineway.themineway_ironbank.model.accounts.Money;
+import com.themineway.themineway_ironbank.model.accounts.StudentChecking;
 import com.themineway.themineway_ironbank.repository.accounts.CreditAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CreditAccountService {
@@ -46,5 +48,9 @@ public class CreditAccountService {
 
     public List<CreditAccount> getAccountsByKeycloakUser(String userId) {
         return creditAccountRepository.getAccountsByKeycloakUserId(userId);
+    }
+
+    public Optional<CreditAccount> getAccountByKeycloakUser(String userId, int accountId) {
+        return creditAccountRepository.getAccountByKeycloakUserId(userId, accountId);
     }
 }

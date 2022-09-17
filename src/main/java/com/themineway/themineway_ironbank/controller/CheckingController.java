@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.ws.rs.NotFoundException;
 import java.security.Principal;
 import java.util.List;
 
@@ -46,5 +49,15 @@ public class CheckingController implements IAccountController<Checking, CreateCh
         Principal principal
     ) {
         return checkingService.getAccountsByKeycloakUser(principal.getName());
+    }
+
+    @GetMapping("my-account/{id}")
+    public Checking getMyAccount(
+        Principal principal,
+        @PathVariable(name = "id") int id
+    ) {
+        final var account = checkingService.getAccountByKeycloakUser(principal.getName(), id);
+        if(account.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        return account.get();
     }
 }

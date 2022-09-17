@@ -3,12 +3,14 @@ package com.themineway.themineway_ironbank.service;
 import com.themineway.themineway_ironbank.model.accounts.Checking;
 import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.accounts.Savings;
+import com.themineway.themineway_ironbank.model.accounts.StudentChecking;
 import com.themineway.themineway_ironbank.repository.accounts.SavingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class SavingsService {
@@ -45,5 +47,9 @@ public class SavingsService {
 
     public List<Savings> getAccountsByKeycloakUser(String userId) {
         return savingRepository.getAccountsByKeycloakUserId(userId);
+    }
+
+    public Optional<Savings> getAccountByKeycloakUser(String userId, int accountId) {
+        return savingRepository.getAccountByKeycloakUserId(userId, accountId);
     }
 }

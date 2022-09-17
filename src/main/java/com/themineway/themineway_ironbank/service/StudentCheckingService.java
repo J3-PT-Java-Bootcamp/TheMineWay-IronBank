@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class StudentCheckingService {
@@ -34,5 +35,9 @@ public class StudentCheckingService {
 
     public List<StudentChecking> getAccountsByKeycloakUser(String userId) {
         return studentCheckingRepository.getAccountsByKeycloakUserId(userId);
+    }
+
+    public Optional<StudentChecking> getAccountByKeycloakUser(String userId, int accountId) {
+        return studentCheckingRepository.getAccountByKeycloakUserId(userId, accountId);
     }
 }
