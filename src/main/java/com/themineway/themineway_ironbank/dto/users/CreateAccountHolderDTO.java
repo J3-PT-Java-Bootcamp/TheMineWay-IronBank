@@ -28,6 +28,10 @@ public class CreateAccountHolderDTO {
     @Email
     public String mailingAddress;
 
+    @NotNull
+    @Length(min = 8, max = 128)
+    public String password;
+
     public User toUser() {
         final var user = new User();
         final var address = new Address();
@@ -39,6 +43,7 @@ public class CreateAccountHolderDTO {
         user.setBirthDate(birthDate);
         user.setPrimaryAddress(address);
         user.setMailAddress(mailingAddress);
+        user.setPassword(password);
 
         return user;
     }

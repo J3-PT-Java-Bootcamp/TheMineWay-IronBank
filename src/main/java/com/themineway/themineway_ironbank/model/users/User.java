@@ -40,6 +40,9 @@ public class User {
     @Column
     String mailAddress;
 
+    @Column
+    String password;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     UserType type;

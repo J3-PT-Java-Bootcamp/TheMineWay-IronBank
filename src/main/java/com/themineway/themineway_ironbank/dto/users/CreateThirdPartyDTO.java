@@ -12,10 +12,15 @@ public class CreateThirdPartyDTO {
     @Length(min = 2)
     public String name;
 
+    @NotNull
+    @Length(min = 8, max = 128)
+    public String password;
+
     public User toUser() {
         final var user = new User();
 
         user.setName(name);
+        user.setPassword(password);
 
         return user;
     }
