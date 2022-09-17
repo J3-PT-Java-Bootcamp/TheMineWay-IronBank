@@ -29,6 +29,10 @@ public class CreateAccountHolderDTO {
     public String mailingAddress;
 
     @NotNull
+    @Length(min = 3, max = 32)
+    public String login;
+
+    @NotNull
     @Length(min = 8, max = 128)
     public String password;
 
@@ -44,6 +48,7 @@ public class CreateAccountHolderDTO {
         user.setPrimaryAddress(address);
         user.setMailAddress(mailingAddress);
         user.setPassword(password);
+        user.setLogin(login);
 
         return user;
     }

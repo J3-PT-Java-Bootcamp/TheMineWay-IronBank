@@ -43,9 +43,15 @@ public class User {
     @Column
     String password;
 
+    @Column
+    String login;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     UserType type;
+
+    @Column(nullable = false)
+    String keycloakUserId;
 
     // Timestamps
 

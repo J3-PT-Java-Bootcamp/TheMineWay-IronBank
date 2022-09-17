@@ -42,7 +42,7 @@ public class KeycloakAdminClientService {
         CredentialRepresentation credentialRepresentation = createPasswordCredentials(user.getPassword());
 
         UserRepresentation kcUser = new UserRepresentation();
-        kcUser.setUsername(user.getEmail());
+        kcUser.setUsername(user.getUsername());
         kcUser.setCredentials(Collections.singletonList(credentialRepresentation));
         kcUser.setFirstName(user.getFirstname());
         kcUser.setLastName(user.getLastname());
@@ -52,7 +52,6 @@ public class KeycloakAdminClientService {
 
 //        Change this to change the group logic
         kcUser.setGroups(List.of("members"));
-
 
         Response response = usersResource.create(kcUser);
 
@@ -64,6 +63,8 @@ public class KeycloakAdminClientService {
 
 //            TODO you may add you logic to store and connect the keycloak user to the local user here
 
+        } else {
+            System.out.println("error on creation");
         }
 
         return response;

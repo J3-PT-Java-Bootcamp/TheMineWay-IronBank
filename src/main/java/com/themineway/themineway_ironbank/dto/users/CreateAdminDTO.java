@@ -16,11 +16,16 @@ public class CreateAdminDTO {
     @Length(min = 8, max = 128)
     public String password;
 
+    @NotNull
+    @Length(min = 3, max = 32)
+    public String login;
+
     public User toUser() {
         final var user = new User();
 
         user.setName(name);
         user.setPassword(password);
+        user.setLogin(login);
 
         return user;
     }
