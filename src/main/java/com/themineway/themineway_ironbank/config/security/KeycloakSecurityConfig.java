@@ -23,11 +23,11 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http.authorizeRequests()
-                .antMatchers("/user/account-holder").hasRole("admin")
-                .antMatchers("/user/admin").hasAnyRole("admin")
-                .antMatchers("/user/third-party").hasAnyRole("admin")
-                .anyRequest()
-                .permitAll();
+            .antMatchers("/user/account-holder").hasRole("admin")
+            .antMatchers("/user/admin").hasRole("admin")
+            .antMatchers("/user/third-party").hasRole("admin")
+            .anyRequest()
+            .permitAll();
         http.csrf().disable();
     }
 
@@ -43,5 +43,4 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
         return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
     }
-
 }
