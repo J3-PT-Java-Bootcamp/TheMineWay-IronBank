@@ -1,6 +1,7 @@
 package com.themineway.themineway_ironbank.controller;
 
 import com.themineway.themineway_ironbank.dto.accounts.CreateCreditAccountDTO;
+import com.themineway.themineway_ironbank.dto.accounts.TransferenceDTO;
 import com.themineway.themineway_ironbank.dto.accounts.UpdateAccountBalanceDTO;
 import com.themineway.themineway_ironbank.model.accounts.Checking;
 import com.themineway.themineway_ironbank.model.accounts.CreditAccount;
@@ -59,5 +60,13 @@ public class CreditController implements IAccountController<CreditAccount, Creat
         final var account = creditAccountService.getAccountByKeycloakUser(principal.getName(), id);
         if(account.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return account.get();
+    }
+
+    @PostMapping("transfer")
+    public void transfer(
+        @Validated @RequestBody TransferenceDTO transferenceDTO,
+        Principal principal
+    ) {
+        creditAccountService.transfer(transferenceDTO, principal.getName());
     }
 }

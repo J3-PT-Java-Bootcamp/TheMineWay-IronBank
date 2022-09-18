@@ -1,13 +1,18 @@
 package com.themineway.themineway_ironbank.service;
 
+import com.themineway.themineway_ironbank.dto.accounts.TransferenceDTO;
+import com.themineway.themineway_ironbank.model.accounts.Checking;
 import com.themineway.themineway_ironbank.model.accounts.CreditAccount;
 import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.accounts.StudentChecking;
 import com.themineway.themineway_ironbank.repository.accounts.CreditAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +57,22 @@ public class CreditAccountService {
 
     public Optional<CreditAccount> getAccountByKeycloakUser(String userId, int accountId) {
         return creditAccountRepository.getAccountByKeycloakUserId(userId, accountId);
+    }
+
+    public void transfer(TransferenceDTO transferenceDTO, String owner) {
+        final var fromAccount = creditAccountRepository.getAccountByKeycloakUserId(owner, transferenceDTO.from);
+        final var toAccount = creditAccountRepository.findById(transferenceDTO.to);
+
+        if(fromAccount.isEmpty() || toAccount.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        final var from = fromAccount.get();
+        final var to = toAccount.get();
+
+        if(from.getBalance().getAmount().compareTo(transferenceDTO.amount) < 0) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+
+        from.getBalance().decreaseAmount(transferenceDTO.amount);
+        to.getBalance().increaseAmount(transferenceDTO.amount);
+
+        creditAccountRepository.saveAll(Arrays.stream(new CreditAccount[] { from, to }).toList());
     }
 }
