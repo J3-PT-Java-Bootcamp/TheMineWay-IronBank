@@ -29,14 +29,13 @@ public class KeycloakProvider {
 
     public Keycloak getInstance() {
         if (keycloak == null) {
-
             return KeycloakBuilder.builder()
-                    .realm(realm)
-                    .serverUrl(serverURL)
-                    .clientId(clientID)
-                    .clientSecret(clientSecret)
-                    .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
-                    .build();
+                .realm(realm)
+                .serverUrl(serverURL)
+                .clientId(clientID)
+                .clientSecret(clientSecret)
+                .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
+                .build();
         }
         return keycloak;
     }

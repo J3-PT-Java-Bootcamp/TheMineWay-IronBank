@@ -54,6 +54,7 @@ public class KeycloakAdminClientService {
         kcUser.setGroups(List.of("members"));
 
         Response response = usersResource.create(kcUser);
+        System.out.println(response.getStatus());
 
         if (response.getStatus() == 201) {
             List<UserRepresentation> userList = adminKeycloak.realm(realm).users().search(kcUser.getUsername()).stream()
