@@ -1,6 +1,7 @@
 package com.themineway.themineway_ironbank.controller;
 
 import com.themineway.themineway_ironbank.dto.accounts.CreateCheckingDTO;
+import com.themineway.themineway_ironbank.dto.accounts.TransferenceDTO;
 import com.themineway.themineway_ironbank.dto.accounts.UpdateAccountBalanceDTO;
 import com.themineway.themineway_ironbank.model.accounts.Checking;
 import com.themineway.themineway_ironbank.service.CheckingService;
@@ -59,5 +60,13 @@ public class CheckingController implements IAccountController<Checking, CreateCh
         final var account = checkingService.getAccountByKeycloakUser(principal.getName(), id);
         if(account.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return account.get();
+    }
+
+    @PostMapping("transfer")
+    public void transfer(
+        @Validated @RequestBody TransferenceDTO transferenceDTO,
+        Principal principal
+    ) {
+        checkingService.transfer(transferenceDTO, principal.getName());
     }
 }
