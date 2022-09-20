@@ -29,7 +29,7 @@ public class KeycloakProvider {
 
     public Keycloak getInstance() {
         if (keycloak == null) {
-            return KeycloakBuilder.builder()
+            keycloak = KeycloakBuilder.builder()
                 .realm(realm)
                 .serverUrl(serverURL)
                 .clientId(clientID)
