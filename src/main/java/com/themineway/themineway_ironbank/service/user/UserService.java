@@ -1,12 +1,13 @@
 package com.themineway.themineway_ironbank.service.user;
 
-import com.themineway.themineway_ironbank.dto.auth.CreateKeycloakUserDTO;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 import com.themineway.themineway_ironbank.model.users.User;
 import com.themineway.themineway_ironbank.model.users.UserType;
 import com.themineway.themineway_ironbank.repository.users.*;
 import com.themineway.themineway_ironbank.service.auth.KeycloakAdminClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,16 +22,16 @@ public class UserService {
     public void createUser(User user, UserType userType) {
         user.setType(userType);
 
-        final var kcUser = new CreateKeycloakUserDTO();
-        kcUser.setUsername(user.getLogin());
-        kcUser.setPassword(user.getPassword());
-        kcUser.setEmail("joel@gmail.com");
-        kcUser.setLastname("Campos");
-        kcUser.setFirstname("Joel");
-
-        final var userResult = keycloakAdminClientService.createKeycloakUser(kcUser);
-        ResponseEntity.status(userResult.getStatus()).build();
-        System.out.println(userResult.getEntity().toString());
+        try {
+            FirebaseAuth fAuth = FirebaseAuth.getInstance();
+            final var fUser = new UserRecord.CreateRequest();
+            fUser.setEmail(user.getMailAddress());
+            fUser.setPassword(user.getPassword());
+            fUser.setDisplayName(user.getName());
+            fAuth.createUser(fUser);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         user.setKeycloakUserId("1");
         userRepository.save(user);
