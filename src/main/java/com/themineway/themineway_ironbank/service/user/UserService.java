@@ -8,9 +8,7 @@ import com.themineway.themineway_ironbank.model.users.UserType;
 import com.themineway.themineway_ironbank.repository.users.*;
 import com.themineway.themineway_ironbank.service.auth.KeycloakAdminClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ResponseStatusException;
 
 @Component
 public class UserService {
@@ -24,19 +22,18 @@ public class UserService {
     public void createUser(User user, UserType userType) {
         user.setType(userType);
 
-        UserRecord createdUser;
         try {
             FirebaseAuth fAuth = FirebaseAuth.getInstance();
             final var fUser = new UserRecord.CreateRequest();
             fUser.setEmail(user.getMailAddress());
             fUser.setPassword(user.getPassword());
             fUser.setDisplayName(user.getName());
-            createdUser = fAuth.createUser(fUser);
+            fAuth.createUser(fUser);
         } catch(Exception e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT);
+            System.out.println(e.getMessage());
         }
 
-        user.setKeycloakUserId(createdUser.getUid());
+        user.setKeycloakUserId("1");
         userRepository.save(user);
     }
 }
