@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,7 +55,10 @@ public class SavingsService {
     }
 
     public Optional<Savings> getAccountByKeycloakUser(String userId, int accountId) {
-        return savingRepository.getAccountByKeycloakUserId(userId, accountId);
+        final var r = savingRepository.getAccountByKeycloakUserId(userId, accountId);
+        if(r.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        applyInterest(r.get());
+        return r;
     }
 
     public void transfer(TransferenceDTO transferenceDTO, String owner) {
@@ -65,6 +69,9 @@ public class SavingsService {
 
         final var from = fromAccount.get();
         final var to = toAccount.get();
+
+        applyInterest(from);
+        applyInterest(to);
 
         if(from.getBalance().getAmount().compareTo(transferenceDTO.amount) < 0) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 
@@ -80,5 +87,15 @@ public class SavingsService {
             account.getBalance().decreaseAmount(new BigDecimal(account.getPenaltyFee()));
             savingRepository.save(account);
         }
+    }
+
+    public void applyInterest(Savings account) {
+        final var m = savingRepository.getMonthsSinceLastInterest(account.getId());
+        if(m.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        System.out.println(Arrays.toString(m.get().keySet().toArray()));
+        account.getBalance().increaseAmount(new BigDecimal(m.get().get("months").toString()).multiply(BigDecimal.valueOf(account.getInterestRate())));
+        account.setLastInterest(new Date());
+        savingRepository.save(account);
     }
 }

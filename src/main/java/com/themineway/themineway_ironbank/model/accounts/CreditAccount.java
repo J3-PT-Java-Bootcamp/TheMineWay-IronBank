@@ -46,6 +46,9 @@ public class CreditAccount {
     @Column(nullable = false)
     Float interestRate;
 
+    @Column
+    Date lastInterest;
+
     // Using BigDecimal may be too overkilling
     @Column(nullable = false)
     int penaltyFee;
