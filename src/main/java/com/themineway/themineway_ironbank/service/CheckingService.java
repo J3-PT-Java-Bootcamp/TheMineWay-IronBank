@@ -97,5 +97,13 @@ public class CheckingService {
         to.getBalance().increaseAmount(transferenceDTO.amount);
 
         checkingRepository.saveAll(Arrays.stream(new Checking[] { from, to }).toList());
+        applyPenalty(from);
+    }
+
+    public void applyPenalty(Checking account) {
+        if(account.getMinimumBalance().getAmount().compareTo(account.getBalance().getAmount()) > 0) {
+            account.getBalance().decreaseAmount(new BigDecimal(account.getPenaltyFee()));
+            checkingRepository.save(account);
+        }
     }
 }

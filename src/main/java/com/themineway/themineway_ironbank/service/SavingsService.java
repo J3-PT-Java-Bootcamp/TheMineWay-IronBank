@@ -72,5 +72,13 @@ public class SavingsService {
         to.getBalance().increaseAmount(transferenceDTO.amount);
 
         savingRepository.saveAll(Arrays.stream(new Savings[] { from, to }).toList());
+        applyPenalty(from);
+    }
+
+    public void applyPenalty(Savings account) {
+        if(account.getMinimumBalance().getAmount().compareTo(account.getBalance().getAmount()) > 0) {
+            account.getBalance().decreaseAmount(new BigDecimal(account.getPenaltyFee()));
+            savingRepository.save(account);
+        }
     }
 }

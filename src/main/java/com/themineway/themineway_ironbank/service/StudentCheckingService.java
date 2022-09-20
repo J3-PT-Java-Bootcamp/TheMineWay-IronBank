@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -61,5 +62,13 @@ public class StudentCheckingService {
         to.getBalance().increaseAmount(transferenceDTO.amount);
 
         studentCheckingRepository.saveAll(Arrays.stream(new StudentChecking[] { from, to }).toList());
+        applyPenalty(from);
+    }
+
+    public void applyPenalty(StudentChecking account) {
+        if(new BigDecimal("0").compareTo(account.getBalance().getAmount()) > 0) {
+            account.getBalance().decreaseAmount(new BigDecimal(account.getPenaltyFee()));
+            studentCheckingRepository.save(account);
+        }
     }
 }

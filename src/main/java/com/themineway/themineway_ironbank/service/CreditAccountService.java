@@ -74,5 +74,13 @@ public class CreditAccountService {
         to.getBalance().increaseAmount(transferenceDTO.amount);
 
         creditAccountRepository.saveAll(Arrays.stream(new CreditAccount[] { from, to }).toList());
+        applyPenalty(from);
+    }
+
+    public void applyPenalty(CreditAccount account) {
+        if(new BigDecimal("0").compareTo(account.getBalance().getAmount()) > 0) {
+            account.getBalance().decreaseAmount(new BigDecimal(account.getPenaltyFee()));
+            creditAccountRepository.save(account);
+        }
     }
 }
