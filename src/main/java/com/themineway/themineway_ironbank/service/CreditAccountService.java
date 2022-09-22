@@ -1,10 +1,7 @@
 package com.themineway.themineway_ironbank.service;
 
 import com.themineway.themineway_ironbank.dto.accounts.TransferenceDTO;
-import com.themineway.themineway_ironbank.model.accounts.Checking;
-import com.themineway.themineway_ironbank.model.accounts.CreditAccount;
-import com.themineway.themineway_ironbank.model.accounts.Money;
-import com.themineway.themineway_ironbank.model.accounts.StudentChecking;
+import com.themineway.themineway_ironbank.model.accounts.*;
 import com.themineway.themineway_ironbank.repository.accounts.CreditAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +54,10 @@ public class CreditAccountService {
     }
 
     public Optional<CreditAccount> getAccountByKeycloakUser(String userId, int accountId) {
-        return creditAccountRepository.getAccountByKeycloakUserId(userId, accountId);
+        final var r = creditAccountRepository.getAccountByKeycloakUserId(userId, accountId);
+        if(r.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        applyInterest(r.get());
+        return r;
     }
 
     public void transfer(TransferenceDTO transferenceDTO, String owner) {
@@ -67,6 +68,9 @@ public class CreditAccountService {
 
         final var from = fromAccount.get();
         final var to = toAccount.get();
+
+        applyInterest(from);
+        applyInterest(to);
 
         if(from.getBalance().getAmount().compareTo(transferenceDTO.amount) < 0) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 
@@ -82,5 +86,15 @@ public class CreditAccountService {
             account.getBalance().decreaseAmount(new BigDecimal(account.getPenaltyFee()));
             creditAccountRepository.save(account);
         }
+    }
+
+    public void applyInterest(CreditAccount account) {
+        final var m = creditAccountRepository.getMonthsSinceLastInterest(account.getId());
+        if(m.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        System.out.println(Arrays.toString(m.get().keySet().toArray()));
+        account.getBalance().increaseAmount(new BigDecimal(m.get().get("months").toString()).multiply(BigDecimal.valueOf(account.getInterestRate())));
+        account.setLastInterest(new Date());
+        creditAccountRepository.save(account);
     }
 }

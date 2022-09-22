@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -15,4 +16,7 @@ public interface CreditAccountRepository extends JpaRepository<CreditAccount, In
 
     @Query(nativeQuery = true, value = "SELECT * FROM credit_account sc WHERE sc.primary_owner_id IN (SELECT u.id FROM `user` u WHERE u.keycloak_user_id = :userId AND u.deleted_at IS NULL) AND sc.deleted_at IS NULL AND sc.id = :accountId")
     Optional<CreditAccount> getAccountByKeycloakUserId(String userId, int accountId);
+
+    @Query(nativeQuery = true, value = "SELECT ROUND(TIMESTAMPDIFF(DAY, IFNULL(c.last_interest, c.created_at) , CURRENT_TIMESTAMP())*12/365.24) as 'months' FROM credit_account c WHERE c.id = :id")
+    Optional<Map<String, Object>> getMonthsSinceLastInterest(int id);
 }
