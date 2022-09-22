@@ -2,6 +2,7 @@ package com.themineway.themineway_ironbank.service;
 
 import com.themineway.themineway_ironbank.dto.accounts.TransferenceDTO;
 import com.themineway.themineway_ironbank.model.accounts.Checking;
+import com.themineway.themineway_ironbank.model.accounts.CreditAccount;
 import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.accounts.StudentChecking;
 import com.themineway.themineway_ironbank.repository.accounts.CheckingRepository;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,7 +81,10 @@ public class CheckingService {
     }
 
     public Optional<Checking> getAccountByKeycloakUser(String userId, int accountId) {
-        return checkingRepository.getAccountByKeycloakUserId(userId, accountId);
+        final var r = checkingRepository.getAccountByKeycloakUserId(userId, accountId);
+        if(r.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        applyMonthlyFee(r.get());
+        return r;
     }
 
     public void transfer(TransferenceDTO transferenceDTO, String owner) {
@@ -90,6 +95,9 @@ public class CheckingService {
 
         final var from = fromAccount.get();
         final var to = toAccount.get();
+
+        applyMonthlyFee(from);
+        applyMonthlyFee(to);
 
         if(from.getBalance().getAmount().compareTo(transferenceDTO.amount) < 0) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 
@@ -105,5 +113,14 @@ public class CheckingService {
             account.getBalance().decreaseAmount(new BigDecimal(account.getPenaltyFee()));
             checkingRepository.save(account);
         }
+    }
+
+    public void applyMonthlyFee(Checking account) {
+        final var m = checkingRepository.getMonthsSinceLastMonthlyFee(account.getId());
+        if(m.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        account.getBalance().decreaseAmount(new BigDecimal(m.get().get("months").toString()).multiply(BigDecimal.valueOf(account.getMonthlyMaintenanceFee())));
+        account.setLastMonthlyFee(new Date());
+        checkingRepository.save(account);
     }
 }

@@ -13,8 +13,8 @@ import java.util.Date;
 @MappedSuperclass
 public class BaseAccount {
     @AttributeOverrides({
-            @AttributeOverride(name = "amount", column = @Column(name = "balance_amount", nullable = false)),
-            @AttributeOverride(name = "currency", column = @Column(name = "balance_currency", nullable = false))
+        @AttributeOverride(name = "amount", column = @Column(name = "balance_amount", nullable = false)),
+        @AttributeOverride(name = "currency", column = @Column(name = "balance_currency", nullable = false))
     })
     @Embedded
     Money balance;
@@ -29,7 +29,4 @@ public class BaseAccount {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     AccountStatus accountStatus;
-
-    @Column
-    Date lastInterest;
 }

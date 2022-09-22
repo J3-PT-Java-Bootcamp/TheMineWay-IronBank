@@ -42,6 +42,9 @@ public class Checking extends BaseAccount {
     @JoinColumn(nullable = true)
     User secondaryOwner;
 
+    @Column
+    Date lastMonthlyFee;
+
     // Timestamps
 
     @Column

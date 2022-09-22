@@ -42,6 +42,9 @@ public class Savings extends BaseAccount {
     @Embedded
     Money minimumBalance;
 
+    @Column
+    Date lastInterest;
+
     // Timestamps
 
     @Column(nullable = false)

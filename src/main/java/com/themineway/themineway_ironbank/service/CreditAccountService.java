@@ -92,7 +92,6 @@ public class CreditAccountService {
         final var m = creditAccountRepository.getMonthsSinceLastInterest(account.getId());
         if(m.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        System.out.println(Arrays.toString(m.get().keySet().toArray()));
         account.getBalance().increaseAmount(new BigDecimal(m.get().get("months").toString()).multiply(BigDecimal.valueOf(account.getInterestRate())));
         account.setLastInterest(new Date());
         creditAccountRepository.save(account);
