@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("third-party")
-    public void createAccountHolder(
+    public void createThirdParty(
         @Validated @RequestBody CreateThirdPartyDTO createThirdPartyDTO
     ) {
         userService.createUser(createThirdPartyDTO.toUser(), UserType.THIRD_PARTY);

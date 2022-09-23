@@ -24,9 +24,8 @@ public class UserService {
         final var kcUser = new CreateKeycloakUserDTO();
         kcUser.setUsername(user.getLogin());
         kcUser.setPassword(user.getPassword());
-        kcUser.setEmail("joel@gmail.com");
-        kcUser.setLastname("Campos");
-        kcUser.setFirstname("Joel");
+        kcUser.setEmail(kcUser.getEmail());
+        kcUser.setFirstname(user.getName());
 
         final var userResult = keycloakAdminClientService.createKeycloakUser(kcUser);
         ResponseEntity.status(userResult.getStatus()).build();
