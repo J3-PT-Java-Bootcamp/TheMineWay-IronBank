@@ -27,6 +27,31 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
             .antMatchers("/user/account-holder").hasRole("admin")
             .antMatchers("/user/admin").hasRole("admin")
             .antMatchers("/user/third-party").hasRole("admin")
+
+            // CHECKING ACCOUNT
+            .antMatchers("/checking-account/my-account/{id}").permitAll()
+            .antMatchers("/checking-account/my-accounts").permitAll()
+            .antMatchers("/checking-account/transfer").permitAll()
+            .antMatchers("/checking-account/**").hasRole("admin")
+
+            // CREDIT ACCOUNT
+            .antMatchers("/credit-account/my-account/**").permitAll()
+            .antMatchers("/credit-account/my-accounts").permitAll()
+            .antMatchers("/credit-account/transfer").permitAll()
+            .antMatchers("/credit-account/**").hasRole("admin")
+
+            // SAVINGS
+            .antMatchers("/savings/my-account/**").permitAll()
+            .antMatchers("/savings/my-accounts").permitAll()
+            .antMatchers("/savings/transfer").permitAll()
+            .antMatchers("/savings/**").hasRole("admin")
+
+            // STUDENT CHECKING
+            .antMatchers("/student-checking-account/my-account/**").permitAll()
+            .antMatchers("/student-checking-account/my-accounts").permitAll()
+            .antMatchers("/student-checking-account/transfer").permitAll()
+            .antMatchers("/student-checking-account/**").hasRole("admin")
+
             .anyRequest()
             .permitAll();
         http.csrf().disable();
