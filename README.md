@@ -13,5 +13,14 @@ In order to visualize the API documentation, go to: http://localhost:8042/swagge
 ### MICROSERVICES
 This project uses Keycloak as the authentication server. It is connected as a microservice.
 
+### LIBRARIES
+This project uses some libraries in order to offer some functionalities:
+- Unirest: testing.
+- Springfox Swagger: interactive API documentation.
+- Keycloak: keycloak admin SDK.
+
+### DATABASE
+The project uses a MySQL database. All tables have three timestamps (createdAt, updatedAt and deletedAt). Records are never deleted, they just update the deletedAt value to be the current timestamp.
+
 ### CLASS DIAGRAM
 ![CD](readme_class_diagram.png)
