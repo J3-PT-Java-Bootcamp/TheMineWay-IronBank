@@ -7,10 +7,7 @@ import com.themineway.themineway_ironbank.model.users.UserType;
 import com.themineway.themineway_ironbank.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "user")
@@ -38,5 +35,12 @@ public class UserController {
         @Validated @RequestBody CreateThirdPartyDTO createThirdPartyDTO
     ) {
         userService.createUser(createThirdPartyDTO.toUser(), UserType.THIRD_PARTY);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteUser(
+       @PathVariable int userId
+    ) {
+        userService.deleteUser(userId);
     }
 }

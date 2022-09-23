@@ -34,4 +34,8 @@ public class UserService {
         user.setKeycloakUserId("1");
         userRepository.save(user);
     }
+
+    public void deleteUser(int userId) {
+        userRepository.deleteById(userId);
+    }
 }
