@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "credit-account")
 public class CreditController implements IAccountController<CreditAccount, CreateCreditAccountDTO> {
@@ -25,7 +26,7 @@ public class CreditController implements IAccountController<CreditAccount, Creat
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void create(
-            @Validated @RequestBody() CreateCreditAccountDTO creditAccountDTO
+        @Validated @RequestBody() CreateCreditAccountDTO creditAccountDTO
     ) {
         creditAccountService.createCreditAccount(creditAccountDTO.toCreditAccount());
     }

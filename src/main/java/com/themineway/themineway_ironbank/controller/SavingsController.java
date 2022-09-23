@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "savings-account")
 public class SavingsController implements IAccountController<Savings, CreateSavingsDTO> {
@@ -25,7 +26,7 @@ public class SavingsController implements IAccountController<Savings, CreateSavi
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void create(
-            @Validated @RequestBody() CreateSavingsDTO savingsDTO
+        @Validated @RequestBody() CreateSavingsDTO savingsDTO
     ) {
         savingsService.createSavings(savingsDTO.toSavings());
     }

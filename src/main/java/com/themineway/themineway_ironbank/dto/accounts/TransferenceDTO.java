@@ -14,6 +14,4 @@ public class TransferenceDTO {
     @NotNull
     @DecimalMin("0")
     public BigDecimal amount;
-
-    public String subject;
 }

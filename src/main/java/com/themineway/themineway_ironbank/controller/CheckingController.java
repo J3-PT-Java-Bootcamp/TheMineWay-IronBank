@@ -16,6 +16,7 @@ import javax.ws.rs.NotFoundException;
 import java.security.Principal;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "checking-account")
 public class CheckingController implements IAccountController<Checking, CreateCheckingDTO> {

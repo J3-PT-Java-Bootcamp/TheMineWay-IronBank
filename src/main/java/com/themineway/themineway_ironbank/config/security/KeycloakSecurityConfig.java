@@ -23,7 +23,9 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http.authorizeRequests()
+        http.cors().and().authorizeRequests()
+            .antMatchers("/auth/login").permitAll()
+
             .antMatchers("/user/account-holder").hasRole("admin")
             .antMatchers("/user/admin").hasRole("admin")
             .antMatchers("/user/third-party").hasRole("admin")

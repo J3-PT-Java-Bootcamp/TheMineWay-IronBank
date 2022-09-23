@@ -15,6 +15,7 @@ import javax.ws.rs.NotFoundException;
 import java.security.Principal;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "student-checking-account")
 public class StudentCheckingController implements IAccountController<StudentChecking, Object> {
