@@ -29,7 +29,7 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
             .antMatchers("/user/account-holder").hasRole("admin")
             .antMatchers("/user/admin").hasRole("admin")
             .antMatchers("/user/third-party").hasRole("admin")
-            .antMatchers("/user/*").hasRole("admin")
+            .antMatchers("/user/**").hasRole("admin")
 
             // CHECKING ACCOUNT
             .antMatchers("/checking-account/my-account/{id}").permitAll()

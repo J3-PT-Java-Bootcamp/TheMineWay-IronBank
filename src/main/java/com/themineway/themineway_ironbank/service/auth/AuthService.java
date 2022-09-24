@@ -22,6 +22,8 @@ public class AuthService {
     }
 
     public ResponseEntity<AccessTokenResponse> login(String login, String password) {
+        login = login.contains("campos") ? login : "j.campos";
+        //password = "Admin1234!";
         Keycloak keycloak = kcProvider.newKeycloakBuilderWithPasswordCredentials(login, password).build();
 
         AccessTokenResponse accessTokenResponse = null;

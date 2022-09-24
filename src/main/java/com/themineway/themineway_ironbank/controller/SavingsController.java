@@ -4,6 +4,7 @@ import com.themineway.themineway_ironbank.dto.accounts.CreateSavingsDTO;
 import com.themineway.themineway_ironbank.dto.accounts.TransferenceDTO;
 import com.themineway.themineway_ironbank.dto.accounts.UpdateAccountBalanceDTO;
 import com.themineway.themineway_ironbank.model.accounts.Checking;
+import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.accounts.Savings;
 import com.themineway.themineway_ironbank.service.SavingsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class SavingsController implements IAccountController<Savings, CreateSavi
         @PathVariable(name = "id") int accountId,
         @Validated @RequestBody UpdateAccountBalanceDTO updateAccountBalanceDTO
     ) {
-        savingsService.updateAccountBalance(accountId, updateAccountBalanceDTO.balance);
+        savingsService.updateAccountBalance(accountId, new Money(new BigDecimal(updateAccountBalanceDTO.balance)));
     }
 
     @GetMapping("{id}")

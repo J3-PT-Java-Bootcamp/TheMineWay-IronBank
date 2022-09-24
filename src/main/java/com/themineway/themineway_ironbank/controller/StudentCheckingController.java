@@ -3,6 +3,7 @@ package com.themineway.themineway_ironbank.controller;
 import com.themineway.themineway_ironbank.dto.accounts.TransferenceDTO;
 import com.themineway.themineway_ironbank.dto.accounts.UpdateAccountBalanceDTO;
 import com.themineway.themineway_ironbank.model.accounts.Checking;
+import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.model.accounts.StudentChecking;
 import com.themineway.themineway_ironbank.service.StudentCheckingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.ws.rs.NotFoundException;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class StudentCheckingController implements IAccountController<StudentChec
         @PathVariable(name = "id") int accountId,
         @Validated @RequestBody UpdateAccountBalanceDTO updateAccountBalanceDTO
     ) {
-        studentCheckingService.updateAccountBalance(accountId, updateAccountBalanceDTO.balance);
+        studentCheckingService.updateAccountBalance(accountId, new Money(new BigDecimal(updateAccountBalanceDTO.balance)));
     }
     
     @GetMapping("{id}")

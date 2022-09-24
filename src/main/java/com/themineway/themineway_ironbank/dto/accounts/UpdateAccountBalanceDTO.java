@@ -6,5 +6,5 @@ import javax.validation.constraints.NotNull;
 
 public class UpdateAccountBalanceDTO {
     @NotNull
-    public Money balance;
+    public int balance;
 }

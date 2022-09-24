@@ -4,6 +4,7 @@ import com.themineway.themineway_ironbank.dto.accounts.CreateCheckingDTO;
 import com.themineway.themineway_ironbank.dto.accounts.TransferenceDTO;
 import com.themineway.themineway_ironbank.dto.accounts.UpdateAccountBalanceDTO;
 import com.themineway.themineway_ironbank.model.accounts.Checking;
+import com.themineway.themineway_ironbank.model.accounts.Money;
 import com.themineway.themineway_ironbank.service.CheckingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.ws.rs.NotFoundException;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class CheckingController implements IAccountController<Checking, CreateCh
         @PathVariable(name = "id") int accountId,
         @Validated @RequestBody UpdateAccountBalanceDTO updateAccountBalanceDTO
     ) {
-        checkingService.updateAccountBalance(accountId, updateAccountBalanceDTO.balance);
+        checkingService.updateAccountBalance(accountId, new Money(new BigDecimal(updateAccountBalanceDTO.balance)));
     }
 
     @GetMapping("{id}")

@@ -31,7 +31,8 @@ public class UserService {
         ResponseEntity.status(userResult.getStatus()).build();
         System.out.println(userResult.getEntity().toString());
 
-        user.setKeycloakUserId("1");
+        //user.setKeycloakUserId("bd599a41-dd77-4a7c-bfcf-19f2f2071595");
+
         userRepository.save(user);
     }
 
